@@ -18,6 +18,9 @@ import { debounce } from 'lodash'
 import FeaturedEvent from './FeaturedEvent.vue'
 import AllEvents from './AllEvents.vue'
 
+// Getting the credentials from the .env file
+const app_id = import.meta.env.VITE_APP_ID
+
 export default {
   components: {
     FeaturedEvent,
@@ -33,9 +36,9 @@ export default {
   mounted() {
     // Fetch the data from the API on page load (default artiste is Ed Sheeran)
     axios
-      .get(
-        'https://rest.bandsintown.com/artists/ed%20sheeran/events?app_id=0ab49580-c84f-44d4-875f-d83760ea2cfe'
-      )
+      .get
+       (`https://rest.bandsintown.com/artists/ed%20sheeran/events?app_id=${app_id}`)
+      
       .then((response) => {
         this.searchResults = response.data
       })
@@ -59,7 +62,7 @@ export default {
 
       try {
         const response = await axios.get(
-          `https://rest.bandsintown.com/artists/${this.searchQuery}/events?app_id=0ab49580-c84f-44d4-875f-d83760ea2cfe`
+       `https://rest.bandsintown.com/artists/${this.searchQuery}/events?app_id=${app_id}`
         )
 
         // Set the search results to the response data
